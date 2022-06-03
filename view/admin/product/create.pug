@@ -1,0 +1,81 @@
+include ../reuse/header.pug
+style.
+    .container {
+        padding : 50px 0;
+    }
+  form {
+  display: flex;
+  flex-direction: column;
+  }
+   #image {
+       width : 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    }
+    #image img {
+    width: 200px;
+    height: 200px;
+    border-radius: 5px;
+    }
+.container
+    .row(style="gap : 5px;margin-bottom : 20px;") 
+        a.btn.btn-primary(href="/admin/procategories") Trang quản trị mèo
+    form(method='post' enctype='multipart/form-data')
+        .form-group
+          label(for='product_categories-type') Tên mèo
+          input#product_categories-type.form-control(type='text' placeholder='Nhập tên mèo' required="" name="name" autocomplete="off")
+        .form-group
+            label Loại
+            select.form-select(name="type")
+                each value in data
+                    option(value=value._id)= value.type
+        .form-group 
+            lable Giới tính
+            .form-check
+                input#flexRadioDefault1.form-check-input(type='radio' name='gender' value="0")
+                label.form-check-label(for='flexRadioDefault1') Đực
+            .form-check
+                input#flexRadioDefault2.form-check-input(type='radio' name='gender' value="1" checked='')
+                label.form-check-label(for='flexRadioDefault2') Cái
+        .form-group 
+            label Tuổi (tháng)
+            .input-group.mb-3
+                input.form-control(type='number' placeholder='Nhập tuổi của mèo' required="" name="age")
+                span#basic-addon1.input-group-text tháng
+        .form-group
+            label(for='product_categories-type') Màu sắc
+            input#product_categories-type.form-control(type='text' placeholder='Nhập màu sắc của mèo' required="" name="color")
+        .form-group
+            label(for='product_categories-type') Giá gốc
+            input#product_categories-type.form-control(type='number' placeholder='Nhập giá gốc của mèo' required="" name="price")
+        .form-group
+            label(for='product_categories-type') Giá sale
+            input#product_categories-type.form-control(type='number' placeholder='Nhập giá sale của mèo' required="" name="price_sale")
+        .form-group 
+            lable Tiêm chủng
+            .form-check
+                input#flexRadioDefault3.form-check-input(type='radio' name='inject' value="0")
+                label.form-check-label(for='flexRadioDefault3') Chưa tiêm
+            .form-check
+                input#flexRadioDefault4.form-check-input(type='radio' name='inject' checked='' value="1")
+                label.form-check-label(for='flexRadioDefault4') Đã tiêm
+        .form-group
+            label(for='exampleFormControlFile1') Ch&#x1ECD;n &#x1EA3;nh m&egrave;o &dstrok;&#x1EA1;i di&#x1EC7;n
+            input#files.form-control-file(type='file' accept='image/*' required="" name="image" multiple="")
+            #image
+        button.btn.btn-primary(type='submit') T&#x1EA1;o
+script.
+  const files = document.getElementById("files");
+  files.onchange = function () {
+  if (files.files.length > 0) {
+  Array.from(files.files).forEach((item, index) => {
+  if (index < 6) {
+  let img = document.createElement("img");
+  img.src = URL.createObjectURL(item);
+  document.getElementById("image").appendChild(img);
+  }
+  });
+  }
+  };
+include ../reuse/footer.pug

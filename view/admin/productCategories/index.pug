@@ -1,0 +1,47 @@
+include ../reuse/header.pug
+style.
+    .container {
+        padding : 50px 0;
+    }
+    .productCategories__item {
+        padding-top : 10px;
+        padding-bottom : 10px;
+        border-radius : 5px;
+        border : 1px solid #32ccbc;
+        display : flex;
+        flex-direction : column;
+    }
+    .productCategories__item:hover {
+        text-decoration : none;
+        background-image: linear-gradient( 135deg, #90F7EC 10%, #32CCBC 100%);
+        transition : linear 0.5s;
+    }
+    .productCategories__image {
+        height: 200px !important;
+        width : 100%;
+        background-size : cover;
+        background-position : 50% 50%;
+        background-repeat : no-repeat;
+    }
+    .productCategories__type{
+      text-transform: capitalize;
+      text-align : center;
+      margin-top : 25px;
+    }
+    .prodcutCategories__button {
+      display : flex;
+      justify-content : space-around;
+  }
+.container
+    .row 
+        a.btn.btn-primary(href="/admin/procategories/create" style="margin-bottom : 20px") Thêm loại mèo
+    .row
+        each value in data
+            .col-sm-3.productCategories__item
+                .productCategories__image(style='background-image: url(' + value.image + ')')
+                p.productCategories__type= value.type
+                .prodcutCategories__button 
+                    a.btn.btn-warning(href="/admin/procategories/edit/"+value._id) Chỉnh sửa
+                    a.btn.btn-danger(href="/admin/procategories/delete/"+value._id) Xóa
+                    a.btn.btn-info(href="/admin/product/"+value._id) Thông tin
+include ../reuse/footer.pug

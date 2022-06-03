@@ -1,0 +1,28 @@
+include ../reuse/header.pug
+style.
+  #image {
+  max-height: 400px;
+  max-width: 400px;
+  display: inline-block;
+  }
+  form {
+  display: flex;
+  flex-direction: column;
+  }
+.container
+  form(method="post" enctype='multipart/form-data')
+    .form-group
+      label(for='product_categories-type') Lo&#x1EA1;i
+      input#product_categories-type.form-control(type='text' aria-describedby='emailHelp' placeholder='Nhập loại mèo' required="" name="type" value=data.type)
+    .form-group
+      label(for='exampleFormControlFile1') Ch&#x1ECD;n &#x1EA3;nh m&egrave;o &dstrok;&#x1EA1;i di&#x1EC7;n
+      input#product_categories-file.form-control-file(type='file' accept='image/*' name="image")
+    img#image(src=data.image)
+    button.btn.btn-warning(type="submit") Chỉnh sửa
+script.
+  document.getElementById("product_categories-file").onchange =
+  function () {
+  var src = URL.createObjectURL(this.files[0]);
+  document.getElementById("image").src = src;
+  };
+include ../reuse/footer.pug

@@ -1,0 +1,55 @@
+include ../reuse/header.pug
+style.
+    .container {
+        padding : 50px 0;
+    }
+    .img-table {
+        width : 50px;
+        height : 50px;
+    }
+.container
+    .row(style="gap : 5px;margin-bottom : 20px;") 
+        a.btn.btn-primary(href="/admin/procategories") Trang quản trị mèo
+        a.btn.btn-success(href="/admin/product/create") Thêm mèo
+    .row
+        h3.text-center="Danh sách "+type.type
+    .row
+        table.table.table-info
+            thead
+                tr
+                th(scope='col') STT
+                th(scope='col') Tên
+                th(scope='col') Ảnh
+                th(scope='col') Giới tính
+                th(scope='col') Tuổi
+                th(scope='col') Loại mèo
+                th(scope='col') Màu sắc
+                th(scope='col') Giá gốc
+                th(scope='col') Giá sale
+                th(scope='col') Tiêm chủng
+                th(scope='col') Chức năng
+            tbody
+                each value,index in data
+                    tr
+                        th(scope='row')=index+1
+                        td=value.name
+                        td(style="display : grid;grid-template-columns : repeat(3 , 1fr);gap : 5px;")
+                            each image in value.images 
+                                img.img-table(src=image)
+                        if value.gender==0 
+                            td Đực
+                        else 
+                            td Cái
+                        td=value.age
+                        td(style="text-transform : Capitalize")=type.type
+                        td=value.color
+                        td.price=value.price 
+                        td.price=value.price_sale
+                        if value.inject == 0 
+                            td Chưa tiêm 
+                        else
+                            td Đã tiêm
+                        td(style="display : flex;gap : 10px;border-top : none")
+                            a.btn.btn-warning(href="/admin/product/edit/"+value._id) Chỉnh sửa
+                            a.btn.btn-danger(href="/admin/product/delete/"+value._id) Xóa
+include ../reuse/footer.pug
